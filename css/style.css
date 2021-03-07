@@ -1,0 +1,66 @@
+*{
+    box-sizing: content-box;
+   
+}
+.choose{
+    background: rgba(191, 191, 191, 1);
+    height: 100vh;
+    border: 1px solid #000;
+    padding: 0px;
+    
+}
+
+.option, .quantity{
+    background: rgba(175, 171, 171, 1);
+    border: 1px solid #000;
+    margin-left: 0px;
+    margin-right: 0px;;
+    height: 75px;
+}
+
+#dropdown{
+    padding:0px;
+}
+
+
+.item{
+    background: rgba(231, 230, 230, 1);
+    border: 1px solid #000;
+    padding-left: 30px;
+    padding-right:30px;
+}
+
+.a{
+    background: rgba(175, 171, 171, 1);
+    border: 1px solid #000;
+    /* margin: 25px 10px 25px 10px; */
+
+}
+
+.a .number{
+    border-radius: 100%;
+    background: rgba(208, 206, 206, 1);
+    height: 58px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-bottom: 20px;
+}
+
+.number h3{
+    margin-top: 10px;
+}
+
+#dropdown{
+    display: none;
+    background: rgba(175, 171, 171, 1);
+}
+
+#optionB{
+    display: none;
+}
+
+#fieldQuantity{
+   width: 100px;
+   height: 15px;
+   margin: auto;
+}

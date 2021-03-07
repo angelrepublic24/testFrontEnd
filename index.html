@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/jquery.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script language="javascript" type="text/javascript">
+            var page = 0;
+            var totalPage = 0;
+            $(document).ready(function () {
+                var option = $("#option");
+                var dropdown = $("#dropdown");
+                var itemA = $("#itemA");
+                var itemB = $("#itemB");
+                var quantity = $("#fieldQuantity");
+                var object;
+
+                // Show and hide OBJ 2 
+                option.click(function () {
+                    dropdown.toggle("slide");
+                });
+
+                $("#item").click(function () {
+                    dropdown.hide("fadeOut");
+                });
+
+                // Show items b and hide item A
+                itemB.click(function () {
+                    $("#optionA").hide("slide");
+                    $("#optionB").show('slide');
+
+                });
+
+                // Show items A and hide item B
+                itemA.click(function () {
+                    $("#optionB").hide("slide");
+                    $("#optionA").show('slide');
+
+                });
+
+                // Add items 
+                object = quantity.blur(function () {
+                    next();
+                });
+            });
+
+            function next() {
+                var quantity = $("#fieldQuantity").val();
+                page = parseInt($("#page").text()) + 1;
+                var div = (quantity / 3) + 1;
+                totalPage = Math.floor(div);
+                if (page <= totalPage) {
+                    $("#page").html(page);
+                    callPage(page);
+                }
+            }
+
+            function previous() {
+                page = parseInt($("#page").text()) - 1;
+                if (page > 0) {
+                    $("#page").html(page);
+                    callPage(page);
+                }
+            }
+
+            function callPage(page) {
+                var quantity = $("#fieldQuantity").val();
+                if (quantity > 0) {
+                    var div = (quantity / 3) + 1;
+                    totalPage = Math.floor(div);
+                }
+                if (page > totalPage) {
+                    page = totalPage;
+                }
+                if (quantity === 0) {
+                    page = 1;
+                }
+                var result = 3 * page - 2;
+                var result2 = result + 2;
+                if (result2 >= quantity) {
+                    result2 = quantity;
+                }
+                $("#totalpage").html("Total page " + totalPage);
+                itemRender(result, result2);
+            }
+
+            function itemRender(start, end) {
+                $(".a").remove();
+                var quantity = $("#fieldQuantity");
+                for (var i = start; i <= end; i++) {
+                    if (quantity.val() !== "" || quantity.val() !== 0) {
+                        $("#optionA").append(`
+                 <div class="a py-3 d-flex justify-content-around my-5">
+                 <div class="number d-block">
+                     <h3>${i}</h3>
+                 </div>
+                 <h3>Item A${i}</h3>
+                 <div></div>
+                 </div>
+                 `
+                                );
+
+
+                        $("#optionB").append(`
+                 <div class="a py-3 d-flex justify-content-around my-5">
+                 <div class="number d-block">
+                     <h3>${i}</h3>
+                 </div>
+                 <h3>Item B${i}</h3>
+                 <div></div>
+                 </div>
+                 `);
+
+                    }
+                }
+
+                if (quantity.val() === "" || quantity.val() === 0) {
+                    $(".a").remove();
+                }
+
+            }
+        </script>
+        <title>Front end test</title>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row m-4">
+                <div class="col-3 choose" id="choose">
+                    <div class="option py-3 my-5">
+                        <h3 class="text-center" id="option">Option</h3>
+                    </div>
+                    <div class="quantity py-3 justify-content-center">
+                        <h3 class="text-center">Quantity</h3>
+                        <input class="text-center form-control" type="number" placeholder="Type here" id="fieldQuantity">
+                    </div>
+
+                    <div class="pag justify-content-center">
+                        <nav>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a href="#" class="page-link" aria-label="Previous" onclick="previous()">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link">
+                                        <span aria-hidden="true" id="page">0</span>
+                                    </a>
+                                </li>
+                                <li class="page-item">
+                                    <a href="#" class="page-link" aria-label="Next" onclick="next()">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="pag justify-content-center">
+                        <nav>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a href="#" class="page-link" aria-label="Previous">
+                                        <span aria-hidden="true" id="totalpage">Total page 1</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+
+                </div>
+                <div class="col-2 py-5" id="dropdown">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown button
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#" id="itemA">Item A</a>
+                            <a class="dropdown-item" href="#" id="itemB">Item B</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col item" id="item">
+                    <div class="optionaA pag" id="optionA">
+                    </div>
+                    <div class="optionB pag" id="optionB">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
